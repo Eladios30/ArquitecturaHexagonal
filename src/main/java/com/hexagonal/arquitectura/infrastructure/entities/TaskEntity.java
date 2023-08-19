@@ -1,5 +1,6 @@
 package com.hexagonal.arquitectura.infrastructure.entities;
 
+import com.hexagonal.arquitectura.domain.models.Task;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +27,15 @@ public class TaskEntity {
         this.description = description;
         this.creationDate = creationDate;
         this.completed = completed;
+    }
+
+    public static TaskEntity fromDomainModel(Task task){
+        return new TaskEntity(task.getId(), task.getTitle(), task.getDescription(),
+                            task.getCreationDate(), task.isCompleted());
+    }
+
+    public Task toDomainModel(){
+        return new Task(id, title, description, creationDate, completed);
     }
 
     public Long getId() {
